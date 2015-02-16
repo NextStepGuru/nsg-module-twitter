@@ -28,7 +28,12 @@ component {
 
 		// module settings - stored in modules.name.settings
 		settings = {
-
+			oauth = {
+				oauthVersion 		= 1,
+				tokenRequestURL 	= "https://api.twitter.com/oauth/request_token",
+				authorizeRequestURL = "https://api.twitter.com/oauth/authorize",
+				accessRequestURL 	= "https://api.twitter.com/oauth/access_token"
+			}
 		};
 
 		// Layout Settings
@@ -44,15 +49,13 @@ component {
 		// SES Routes
 		routes = [
 			// Module Entry Point
-			{pattern="/", handler="home",action="index"},
-			{pattern="/oauth/:id?", handler="oauth",action="index"},
-			// Convention Route
-			{pattern="/:handler/:action?"}
+			{pattern="/", handler="oauth",action="index"},
+			{pattern="/oauth/:id?", handler="oauth",action="index"}
 		];
 
 		// Custom Declared Points
 		interceptorSettings = {
-			customInterceptionPoints = ""
+			customInterceptionPoints = "twitterLoginSuccess"
 		};
 
 		// Custom Declared Interceptors
