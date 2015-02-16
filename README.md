@@ -1,7 +1,10 @@
 Coldbox Module to allow Social Login via Twitter
 ================
 
-Add the following structure to Coldbox.cfc
+Setup & Installation
+---------------------
+
+####Add the following structure to Coldbox.cfc
 	twitter = {
 		oauth = {
 			// This must MATCH exactly the twitter oauth callback url
@@ -19,25 +22,27 @@ Add the following structure to Coldbox.cfc
 		}
 	}
 
-If you want to capture any data from a successful login, use the interception point twitterLoginSuccess.
-Inside the interceptData structure will contain all the provided data from twitter for the specific user.
+Interception Point
+---------------------
+If you want to capture any data from a successful login, use the interception point twitterLoginSuccess. Inside the interceptData structure will contain all the provided data from twitter for the specific user.
 
-An example interception could look like this
+####An example interception could look like this
 
-component {
+	component {
 
-	function twitterLoginSuccess(event,interceptData){
-		var queryService = new query(sql="SELECT roles,email,password FROM user WHERE twitterUserID = :id;");
-			queryService.addParam(name="id",value=interceptData['user_id']);
-		var lookup = queryService.execute().getResult();
+		function twitterLoginSuccess(event,interceptData){
+			var queryService = new query(sql="SELECT roles,email,password FROM user WHERE twitterUserID = :id;");
+				queryService.addParam(name="id",value=interceptData['user_id']);
+			var lookup = queryService.execute().getResult();
 
-		if( lookup.recordCount ){
-			login {
-				loginuser name=lookup.email password=lookup.password roles=lookup.roles;
-			};
-		}else{
-			// create new user
+			if( lookup.recordCount ){
+				login {
+					loginuser name=lookup.email password=lookup.password roles=lookup.roles;
+				};
+			}else{
+				// create new user
+			}
+
 		}
-
 	}
-}
+
