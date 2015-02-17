@@ -1,6 +1,7 @@
 component {
 
 	property name="oauthService" inject="oauthV1Service@oauth";
+	property name="twitterService" inject="twitterService@twitter";
 
 	function preHandler(event,rc,prc){
 		if( !structKeyExists(getSetting('twitter'),'oauth') ){
@@ -19,15 +20,8 @@ component {
 		if( event.getValue('id','') == 'announceUser' ){
 			var results = duplicate(session['twitterOAuth']);
 
-			oauthService.init();
-			oauthService.setRequestMethod('GET');
-			oauthService.setConsumerKey(prc.twitterCredentials['consumerKey']);
-			oauthService.setConsumerSecret(prc.twitterCredentials['consumerSecret']);
-			oauthService.setAccessToken(session['twitterOAuth']['oauth_token']);
-			oauthService.setAccessTokenSecret(session['twitterOAuth']['oauth_token_secret']);
-			oauthService.setRequestURL('https://api.twitter.com/1.1/users/show.json');
-			oauthService.addParam(name="user_id",value=results['user_id']);
-			var data = deserializeJSON(oauthService.send()['fileContent']);
+			twitterService.setup(results['oauth_token'],results['oauth_token_secret'])
+			var data = twitterService.getUser().show(userID=results['user_id']);
 
 			// add the user data to the announceInterception
 			structAppend(results,data);

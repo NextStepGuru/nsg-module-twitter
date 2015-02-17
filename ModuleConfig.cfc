@@ -63,7 +63,7 @@ component {
 		];
 
 		// Binder Mappings
-		binder.mapDirectory( "models" );
+		binder.mapDirectory( "#moduleMapping#.models" );
 
 	}
 
