@@ -38,7 +38,6 @@ component {
 
 		// Layout Settings
 		layoutSettings = {
-			defaultLayout = ""
 		};
 
 		// datasources
