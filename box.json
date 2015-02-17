@@ -1,5 +1,5 @@
 {
-    "name":"Twitter-API-Wrapper",
+    "name":"nsg-module-twitter",
     "slug":"nsg-module-twitter",
     "version":"1.0.0",
     "author":"Jeremy R DeYoung",
@@ -17,7 +17,7 @@
     "bugs":"",
     "description":"",
     "instructions":"README.md",
-    "changelog":"",
+    "changelog":"CHANGELOG.md",
     "type":"",
     "keywords":[
 
