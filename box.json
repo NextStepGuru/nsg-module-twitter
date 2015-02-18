@@ -1,7 +1,7 @@
 {
     "name":"nsg-module-twitter",
     "slug":"nsg-module-twitter",
-    "version":"1.0.0",
+    "version":"1.0.3",
     "author":"Jeremy R DeYoung",
     "shortDescription":"Coldbox Module to allow Social Login via Twitter ",
     "location":"",
@@ -46,7 +46,8 @@
 
     ],
     "dependencies":{
-        "nsg-module-oauth":"1.0.0"
+        "nsg-module-oauth":"1.0.3",
+        "nsg-module-security":"1.0.3"
     },
     "devDependencies":{
 

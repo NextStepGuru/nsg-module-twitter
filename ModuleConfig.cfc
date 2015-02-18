@@ -5,7 +5,7 @@ component {
 	this.author 			= "Jeremy R DeYoung";
 	this.webURL 			= "http://www.nextstep.guru";
 	this.description 		= "This is the default configuration for nsg's layout.";
-	this.version			= "1.0.0";
+	this.version			= "1.0.3";
 	// If true, looks for views in the parent first, if not found, then in the module. Else vice-versa
 	this.viewParentLookup 	= true;
 	// If true, looks for layouts in the parent first, if not found, then in module. Else vice-versa
@@ -17,7 +17,7 @@ component {
 	// CF Mapping
 	this.cfmapping			= "twitter";
 	// Module Dependencies
-	this.dependencies 		= [];
+	this.dependencies 		= ["nsg-module-security","nsg-module-oauth"];
 
 	function configure(){
 
@@ -54,7 +54,7 @@ component {
 
 		// Custom Declared Points
 		interceptorSettings = {
-			customInterceptionPoints = "twitterLoginSuccess"
+			customInterceptionPoints = "twitterLoginSuccess,twitterLoginFailure"
 		};
 
 		// Custom Declared Interceptors
@@ -70,7 +70,12 @@ component {
 	* Fired when the module is registered and activated.
 	*/
 	function onLoad(){
-
+		var nsgSocialLogin = controller.getSetting('nsgSocialLogin',false,arrayNew());
+			arrayAppend(nsgSocialLogin,{"name":"twitter","icon":"twitter","title":"Twitter"});
+			controller.setSetting('nsgSocialLogin',nsgSocialLogin);
+		var nsgMenu = controller.getSetting('nsgMenu',false,[]);
+		// menu::login
+		arrayAppend(nsgMenu,{ "menu"="topRight","subid":"login","icon"="fa fa-twitter","id":"loginTwitter","title":"Sign-in with Twitter","link":"/security/login/twitter","roles":"","type":"link","isUserLoggedIn":false });
 	}
 
 	/**
