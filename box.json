@@ -46,14 +46,13 @@
 
     ],
     "dependencies":{
-        "nsg-module-oauth":"1.0.3",
-        "nsg-module-security":"1.0.3"
+        "nsg-module-oauth":"1.0.0",
+        "nsg-module-security":"1.0.2"
     },
     "devDependencies":{
 
     },
     "installPaths":{
-
     },
     "ignore":[
 
