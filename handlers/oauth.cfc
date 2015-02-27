@@ -26,7 +26,12 @@ component {
 			// add the user data to the announceInterception
 			structAppend(results,data);
 
+			structKeyRename(results,'user_id','referenceID');
+
+			results['socialservice'] = 'Twitter';
+
 			announceInterception( state='twitterLoginSuccess', interceptData=results );
+			announceInterception( state='loginSuccess', interceptData=results );
 			setNextEvent(view=prc.twitterCredentials['loginSuccess'],ssl=( cgi.server_port == 443 ? true : false ));
 
 		}else if( event.valueExists('oauth_token') ){
@@ -53,6 +58,7 @@ component {
 				setNextEvent('twitter/oauth/announceUser');
 			}else{
 				announceInterception( state='twitterLoginFailure', interceptData={'request':results} );
+				announceInterception( state='loginFailure', interceptData=results );
 				throw('Unknown Twitter OAuth Error','twitter.access');
 			}
 
@@ -84,4 +90,10 @@ component {
 		}
 	}
 
+	function structKeyRename(mStruct,mTarget,mKey){
+		arguments.mStruct[mKey] = arguments.mStruct[mTarget];
+		structDelete(arguments.mStruct,mTarget);
+
+		return arguments.mStruct;
+	}
 }
